@@ -10,12 +10,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/purchases")
 public class PurchaseController {
 
     @Autowired
     PurchaseRepository purchaseRepository;
 
-    @RequestMapping(value = "/purchases", method = RequestMethod.GET)
+    @GetMapping()
     public String retrieveAllPurchases(Map<String, Object> model) {
         System.out.println("PurchaseController: retrieve all Purchases...");
         Iterable<Purchase> purchases = purchaseRepository.findAll();
@@ -24,8 +25,10 @@ public class PurchaseController {
         return "showpurchases";
     }
 
-    @RequestMapping(value = "/purchases/{id}", method = RequestMethod.GET)
-    public String retrievePurchase(@PathVariable long id, Map<String, Object> model) {
+    @GetMapping("/{id}")
+    public String retrievePurchase(
+            @PathVariable long id,
+            Map<String, Object> model) {
         System.out.println("PurchaseController: retrieve Purchase by id = " + id);
         Optional<Purchase> purchase = purchaseRepository.findById(id);
         if (purchase.isPresent()) {
@@ -36,31 +39,40 @@ public class PurchaseController {
         return "showpurchases";
     }
 
-    @DeleteMapping("/purchases/delete/{id}")
-    public void deletePurchase(@PathVariable long id, Map<String, Object> model) {
+    @DeleteMapping("/delete/{id}")
+    public String deletePurchase(
+            @PathVariable long id,
+            Map<String, Object> model) {
         System.out.println("PurchaseController: delete Purchase by id = " + id);
         Optional<Purchase> purchase = purchaseRepository.findById(id);
         if (purchase.isPresent()) {
             purchaseRepository.deleteById(id);
-            retrieveAllPurchases(model);
         }
+        // show updated data
+        Iterable<Purchase> allPurchases = purchaseRepository.findAll();
+        model.put("purchases", allPurchases);
+        return "showpurchases";
     }
 
-    @PostMapping("/purchases/add")
-    public @ResponseBody
+    @PostMapping("/add")
     String addPurchase(
             @RequestParam long cl_id,
             @RequestParam long prod_id,
             @RequestParam int amount,
             Map<String, Object> model) {
         System.out.println("PurchaseController: try to create new Purchase... ");
-        Purchase purchase = new Purchase();
-        purchase.setClientId(cl_id);
-        purchase.setProductId(prod_id);
-        purchase.setAmount(amount);
-        System.out.println("PurchaseController: created new purchase: " + purchase.toString());
-        purchaseRepository.save(purchase);
-        model.put("purchases", purchase);
+        Purchase newPurchase = new Purchase();
+        newPurchase.setClientId(cl_id);
+        newPurchase.setProductId(prod_id);
+        newPurchase.setAmount(amount);
+        System.out.println("PurchaseController: created new purchase: " + newPurchase.toString());
+
+        purchaseRepository.save(newPurchase);
+       // model.put("purchases", newPurchase);
+
+        // show updated data
+        Iterable<Purchase> allPurchases = purchaseRepository.findAll();
+        model.put("purchases", allPurchases);
         return "showpurchases";
     }
 }

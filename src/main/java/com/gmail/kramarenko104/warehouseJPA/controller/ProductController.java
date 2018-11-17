@@ -10,12 +10,13 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
     ProductRepository productRepository;
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @GetMapping()
     public String retrieveAllProducts(Map<String, Object> model) {
         System.out.println("ProductController: retrieve all Products...");
         Iterable<Product> products = productRepository.findAll();
@@ -24,8 +25,10 @@ public class ProductController {
         return "showproducts";
     }
 
-    @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
-    public String retrievePproduct(@PathVariable long id, Map<String, Object> model) {
+    @GetMapping("/{id}")
+    public String retrievePproduct(
+            @PathVariable long id,
+            Map<String, Object> model) {
         System.out.println("ProductController: retrieve Product by id = " + id);
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
@@ -36,28 +39,37 @@ public class ProductController {
         return "showproducts";
     }
 
-    @DeleteMapping("/products/delete/{id}")
-    public void deleteProduct(@PathVariable long id, Map<String, Object> model) {
+    @DeleteMapping("/delete/{id}")
+    public String deleteProduct(
+            @PathVariable long id,
+            Map<String, Object> model) {
         System.out.println("ProductController: delete Product by id = " + id);
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
             productRepository.deleteById(id);
-            retrieveAllProducts(model);
         }
+        // show updated data
+        Iterable<Product> allProducts = productRepository.findAll();
+        model.put("products", allProducts);
+        return "showproducts";
     }
 
-    @RequestMapping(value = "/products/add", method = RequestMethod.POST)
+    @PostMapping("/add")
     public String addProduct(
-            @RequestParam (value = "model", required = true) String mod,
-            @RequestParam (value = "price", required = true) double price,
+            @RequestParam String mod,
+            @RequestParam double price,
             Map<String, Object> model) {
         System.out.println("ProductController: try to create new Product... ");
-        Product product = new Product();
-        product.setModel(mod);
-        product.setPrice(price);
-        System.out.println("ProductController: created new product: " + product.toString());
-        productRepository.save(product);
-        model.put("products", product);
+        Product savedProduct = new Product();
+        savedProduct.setModel(mod);
+        savedProduct.setPrice(price);
+        System.out.println("ProductController: created new product: " + savedProduct.toString());
+        productRepository.save(savedProduct);
+        //model.put("products", savedProduct);
+
+        // show updated data
+        Iterable<Product> allProducts = productRepository.findAll();
+        model.put("products", allProducts);
         return "showproducts";
     }
 }

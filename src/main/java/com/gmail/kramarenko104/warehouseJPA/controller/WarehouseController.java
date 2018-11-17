@@ -11,17 +11,17 @@ import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/warehouse")
 public class WarehouseController {
 
     @Autowired
     private WarehouseRepository warehouseRepository;
 
-    @RequestMapping(value = "/warehouse", method = RequestMethod.GET)
-    public String retrieveAllClients(Map<String, Object> model) {
-        System.out.println("ClientController: retrieve all Clients...");
+    @GetMapping()
+    public String retrieveAllProductsOnStore(Map<String, Object> model) {
+        System.out.println("WarehouseController: retrieve all Products on store...");
         Iterable<WareHouse> warehouse = warehouseRepository.findAll();
         model.put("warehouse", warehouse);
-        // showWarehouse ==  means template file 'showWarehouse.mustache'
         return "showWarehouse";
     }
 

@@ -1,27 +1,21 @@
 package com.gmail.kramarenko104.warehouseJPA.controller;
 
-import com.gmail.kramarenko104.warehouseJPA.exceptions.ClientNotFoundException;
 import com.gmail.kramarenko104.warehouseJPA.model.Client;
 import com.gmail.kramarenko104.warehouseJPA.repository.ClientRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/clients")
 public class ClientController {
 
     @Autowired
     private ClientRepository clientRepository;
 
-    @GetMapping("/clients")
+    @GetMapping()
     public String retrieveAllClients(Map<String, Object> model) {
         System.out.println("ClientController: retrieve all Clients...");
         Iterable<Client> clients = clientRepository.findAll();
@@ -30,7 +24,7 @@ public class ClientController {
         return "showclients";
     }
 
-    @GetMapping("/clients/{id}")
+    @GetMapping("/{id}")
     public String retrieveClient(
             @PathVariable long id,
             Map<String, Object> model) {
@@ -44,7 +38,7 @@ public class ClientController {
         return "showclients";
     }
 
-    @DeleteMapping("/clients/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteClient(
             @PathVariable long id,
             Map<String, Object> model) {
@@ -60,7 +54,7 @@ public class ClientController {
     }
 
     //localhost:8080/clients/add?name="First"&address="someTestAddress"
-    @PostMapping("/clients/add")
+    @PostMapping("/add")
     public String createClient(
             @RequestParam String name,
             @RequestParam String address,
@@ -81,7 +75,7 @@ public class ClientController {
     }
 
     //localhost:8080/clients/update/4/name="Forth"&address="4 some TestAddress"
-    @PutMapping("/clients/update/{id}")
+    @PutMapping("/update/{id}")
    // public ResponseEntity<Object> updateClient(
     public String updateClient(
             @PathVariable long id,
