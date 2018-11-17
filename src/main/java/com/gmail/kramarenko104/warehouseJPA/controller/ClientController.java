@@ -38,6 +38,7 @@ public class ClientController {
         return "showclients";
     }
 
+    //localhost:8080/delete/4 --> 404
     @DeleteMapping("/delete/{id}")
     public String deleteClient(
             @PathVariable long id,
@@ -53,16 +54,17 @@ public class ClientController {
         return "showclients";
     }
 
-    //localhost:8080/clients/add?name="First"&address="someTestAddress"
+    //localhost:8080/clients/add?id=1&name="First"&address="someTestAddress" ->
+    //(type=Bad Request, status=400)
+    // Failed to convert value of type 'java.lang.String' to required type 'long';
     @PostMapping("/add")
     public String createClient(
+            @RequestParam long id,
             @RequestParam String name,
             @RequestParam String address,
             Map<String, Object> model) {
         System.out.println("ClientController: try to create new Client... ");
-        Client newClient = new Client();
-        newClient.setName(name);
-        newClient.setAddress(address);
+        Client newClient = new Client(name, address);
         System.out.println("ClientController: created new Client: " + newClient.toString());
 
         Client savedClient = clientRepository.save(newClient);
@@ -74,7 +76,8 @@ public class ClientController {
         return "showclients";
     }
 
-    //localhost:8080/clients/update/4/name="Forth"&address="4 some TestAddress"
+    //localhost:8080/clients/update/4/name="Forth"&address="4 some TestAddress"  -> 404
+    //localhost:8080/clients/update/4?name="Forth"&address="4 some TestAddress"  -> 405
     @PutMapping("/update/{id}")
    // public ResponseEntity<Object> updateClient(
     public String updateClient(

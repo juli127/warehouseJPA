@@ -5,14 +5,31 @@
 </head>
 <body>
 
-<div><b>Purchases list:</b></div>
-{{#purchases}}
-    <div>
-        <span>{{cl_id}} | </span>
-        <span>{{prod_id}} | </span>
-        <span>{{amount}}</span>
-    </div>
-{{/purchases}}
+<style>
+    table {
+        border-collapse: collapse;
+    }
 
+    table, td, th {
+        border: 1px solid #999;
+        padding: 5px;
+    }
+</style>
+
+<div><b><h2>Purchases list:</h2></b></div>
+<table>
+    <tr>
+        <th>cl_id</th>
+        <th>prod_id</th>
+        <th>amount</th>
+    </tr>
+    {{#purchases}}
+        <tr>
+            <td>{{cl_id}}</td>
+            <td>{{prod_id}}</td>
+            <td>{{amount}}</td>
+        </tr>
+    {{/purchases}}
+</table>
 </body>
 </html>

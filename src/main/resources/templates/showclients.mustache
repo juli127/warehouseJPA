@@ -5,14 +5,32 @@
 </head>
 <body>
 
-<div><b>Clients list:</b></div>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, td, th {
+        border: 1px solid #999;
+        padding: 5px;
+    }
+</style>
+
+<div><b> <h2>Clients list: </h2></b></div>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>address</th>
+    </tr>
 {{#clients}}
-    <div>
-        <span>{{id}} | </span>
-        <span>{{name}} | </span>
-        <span>{{address}}</span>
-    </div>
+<tr>
+    <td>{{id}}</td>
+    <td>{{name}}</td>
+    <td>{{address}}</td>
+</tr>
 {{/clients}}
+</table>
 
 <div>
     <form method="post">

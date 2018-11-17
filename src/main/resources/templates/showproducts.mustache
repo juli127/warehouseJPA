@@ -5,14 +5,33 @@
 </head>
 <body>
 
-<div><b>Products list:</b></div>
-{{#products}}
-    <div>
-        <span>{{type}} | </span>
-        <span>{{model}} | </span>
-        <span>{{price}}</span>
-    </div>
-{{/products}}
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, td, th {
+        border: 1px solid #999;
+        padding: 5px;
+    }
+</style>
+
+<div><b><h2>Products list:</h2></b></div>
+
+<table>
+    <tr>
+        <th>type</th>
+        <th>model</th>
+        <th>price</th>
+    </tr>
+    {{#products}}
+        <tr>
+            <td>{{type}}</td>
+            <td>{{model}}</td>
+            <td>{{price}}</td>
+        </tr>
+    {{/products}}
+</table>
 
 <div>
     <form method="post">

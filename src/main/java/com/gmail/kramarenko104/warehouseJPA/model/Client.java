@@ -1,6 +1,8 @@
 package com.gmail.kramarenko104.warehouseJPA.model;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -18,10 +20,25 @@ public class Client {
     @Column
     private String address;
 
+//    @ElementCollection
+//    Set<Client> clients = new HashSet<>();
+
     public Client(long id, String name, String address) {
         this.id = id;
         this.name = name;
         this.address = address;
+       // clients.add(this);
+    }
+
+    public Client(String name, String address) {
+//        if (clients.isEmpty()){
+//            this.id = 0;
+//        }else {
+//            this.id = clients.size();
+//        }
+        this.name = name;
+        this.address = address;
+       // clients.add(this);
     }
 
     public Client() {
