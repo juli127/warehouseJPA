@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<head>
+    <title>WareHouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div><b>Clients list:</b></div>
+{{#clients}}
+    <div>
+        <span>{{id}} | </span>
+        <span>{{name}} | </span>
+        <span>{{address}}</span>
+    </div>
+{{/clients}}
+
+<div>
+    <form method="post">
+        <input type="text" name="name" placeholder="Введите имя">
+        <input type="text" name="address" placeholder="Введите адрес">
+        <button type="submit">Add Client</button>
+    </form>
+</div>
+
+</body>
+</html>

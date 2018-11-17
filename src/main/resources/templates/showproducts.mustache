@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<head>
+    <title>WareHouse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+
+<div><b>Products list:</b></div>
+{{#products}}
+    <div>
+        <span>{{type}} | </span>
+        <span>{{model}} | </span>
+        <span>{{price}}</span>
+    </div>
+{{/products}}
+
+<div>
+    <form method="post">
+        <input type="text" name="type" placeholder="Введите тип">
+        <input type="text" name="model" placeholder="Введите модель">
+        <input type="text" name="price" placeholder="Введите цену">
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+</body>
+</html>
