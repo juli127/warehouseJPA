@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<head>
+    <title>WareHouse</title>
+</head>
+
+<body>
+<div><b> <h2>Login page: </h2></b></div>
+<div>
+    <form action="/login" method="post">
+        <input type="text" name="login" placeholder="Введите логин">
+        <input type="text" name="password" placeholder="Введите пароль">
+        <input type="hidden" name="_csrf" value={{_csrf.token}}/>
+        <button type="submit">login</button>
+    </form>
+</div>
+
+<div>
+    <p><h3><a href="/registration">Add new client</a></h3></p>
+</div>
+<div>
+    <p><h3><a href="/choice">Go back to main page</a></h3></p>
+</div>
+
+</body>
+
+</html>

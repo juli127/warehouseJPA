@@ -16,16 +16,32 @@
     }
 </style>
 
-<div><b><h2>Products list:</h2></b></div>
+<form action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" value={{_csrf.token}}/>
+    <input type="submit" value="Sign Out"/>
+</form>
 
+<div>
+    <form method="post">
+        <input type="text" name="type" placeholder="Введите тип">
+        <input type="text" name="model" placeholder="Введите модель">
+        <input type="text" name="price" placeholder="Введите стоимость">
+        <input type="hidden" name="_csrf" value={{_csrf.token}}/>
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+<div><b><h2>Products list:</h2></b></div>
 <table>
     <tr>
+        <th>id</th>
         <th>type</th>
         <th>model</th>
         <th>price</th>
     </tr>
     {{#products}}
         <tr>
+            <td>{{id}}</td>
             <td>{{type}}</td>
             <td>{{model}}</td>
             <td>{{price}}</td>
@@ -34,12 +50,7 @@
 </table>
 
 <div>
-    <form method="post">
-        <input type="text" name="type" placeholder="Введите тип">
-        <input type="text" name="model" placeholder="Введите модель">
-        <input type="text" name="price" placeholder="Введите цену">
-        <button type="submit">Add Product</button>
-    </form>
+    <p><h3><a href="/choice">Go back to main page</a></h3></p>
 </div>
 
 </body>

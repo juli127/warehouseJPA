@@ -1,7 +1,9 @@
-package com.gmail.kramarenko104.warehouseJPA.model;
+package com.gmail.kramarenko104.warehouseJPA.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "products")
@@ -17,6 +19,9 @@ public class Product {
 
     private double price;
 
+    @ElementCollection
+    Set<Product> products = new HashSet<>();
+
     public Product(){
     }
 
@@ -24,6 +29,12 @@ public class Product {
         this.type = type;
         this.model = model;
         this.price = price;
+        if (products.isEmpty()) {
+            this.id = 0;
+        } else {
+            this.id = products.size();
+        }
+        products.add(this);
     }
 
     public Product(long id, String type, String model, double price) {
@@ -90,7 +101,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "[" + type + ", model='" + model + ", price=" + price + "]";
+        return "['" + type + "', model='" + model + "', price=" + price + "]";
     }
 
 

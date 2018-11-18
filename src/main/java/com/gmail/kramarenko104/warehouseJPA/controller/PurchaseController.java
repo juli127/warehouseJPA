@@ -1,7 +1,7 @@
 package com.gmail.kramarenko104.warehouseJPA.controller;
 
-import com.gmail.kramarenko104.warehouseJPA.model.Purchase;
-import com.gmail.kramarenko104.warehouseJPA.repository.PurchaseRepository;
+import com.gmail.kramarenko104.warehouseJPA.entity.Purchase;
+import com.gmail.kramarenko104.warehouseJPA.repository.PurchaseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +14,12 @@ import java.util.Optional;
 public class PurchaseController {
 
     @Autowired
-    PurchaseRepository purchaseRepository;
+    PurchaseRepo purchaseRepo;
 
     @GetMapping()
     public String retrieveAllPurchases(Map<String, Object> model) {
         System.out.println("PurchaseController: retrieve all Purchases...");
-        Iterable<Purchase> purchases = purchaseRepository.findAll();
+        Iterable<Purchase> purchases = purchaseRepo.findAll();
         model.put("purchases", purchases);
         // showpurchases ==  means template file 'showpurchases.mustache'
         return "showpurchases";
@@ -30,7 +30,7 @@ public class PurchaseController {
             @PathVariable long id,
             Map<String, Object> model) {
         System.out.println("PurchaseController: retrieve Purchase by id = " + id);
-        Optional<Purchase> purchase = purchaseRepository.findById(id);
+        Optional<Purchase> purchase = purchaseRepo.findById(id);
         if (purchase.isPresent()) {
             Purchase foundPurchase = purchase.get();
             System.out.println("PurchaseController: found Purchase: " + purchase.toString());
@@ -39,22 +39,26 @@ public class PurchaseController {
         return "showpurchases";
     }
 
-    @DeleteMapping("/delete/{id}")
+//    List<Purchase> getPurchasesByClient(String login){
+//        return null;
+//    }
+
+    @DeleteMapping("/{id}")
     public String deletePurchase(
             @PathVariable long id,
             Map<String, Object> model) {
         System.out.println("PurchaseController: delete Purchase by id = " + id);
-        Optional<Purchase> purchase = purchaseRepository.findById(id);
+        Optional<Purchase> purchase = purchaseRepo.findById(id);
         if (purchase.isPresent()) {
-            purchaseRepository.deleteById(id);
+            purchaseRepo.deleteById(id);
         }
         // show updated data
-        Iterable<Purchase> allPurchases = purchaseRepository.findAll();
+        Iterable<Purchase> allPurchases = purchaseRepo.findAll();
         model.put("purchases", allPurchases);
         return "showpurchases";
     }
 
-    @PostMapping("/add")
+    @PostMapping()
     String addPurchase(
             @RequestParam long cl_id,
             @RequestParam long prod_id,
@@ -67,11 +71,11 @@ public class PurchaseController {
         newPurchase.setAmount(amount);
         System.out.println("PurchaseController: created new purchase: " + newPurchase.toString());
 
-        purchaseRepository.save(newPurchase);
+        purchaseRepo.save(newPurchase);
        // model.put("purchases", newPurchase);
 
         // show updated data
-        Iterable<Purchase> allPurchases = purchaseRepository.findAll();
+        Iterable<Purchase> allPurchases = purchaseRepo.findAll();
         model.put("purchases", allPurchases);
         return "showpurchases";
     }

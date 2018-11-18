@@ -16,6 +16,11 @@
     }
 </style>
 
+<form action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" value={{_csrf.token}}/>
+    <input type="submit" value="Sign Out"/>
+</form>
+
 <div><b><h2>Warehouse has products:</h2></b></div>
 <table>
     <tr>
@@ -31,6 +36,10 @@
         </tr>
     {{/warehouse}}
 </table>
+
+<div>
+    <p><h3><a href="/choice">Go back to main page</a></h3></p>
+</div>
 
 </body>
 </html>

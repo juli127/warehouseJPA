@@ -1,4 +1,4 @@
-package com.gmail.kramarenko104.warehouseJPA.model;
+package com.gmail.kramarenko104.warehouseJPA.entity;
 
 import javax.persistence.*;
 

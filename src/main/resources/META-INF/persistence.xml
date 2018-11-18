@@ -5,14 +5,16 @@
 
     <persistence-unit name="persistenceUnits.WarehouseJPA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.gmail.kramarenko104.warehouseJPA.model.Client</class>
-        <class>com.gmail.kramarenko104.warehouseJPA.model.Product</class>
-        <class>com.gmail.kramarenko104.warehouseJPA.model.Purchase</class>
-        <class>com.gmail.kramarenko104.warehouseJPA.model.WareHouse</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.entity.Client</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.entity.Product</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.entity.Purchase</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.entity.WareHouse</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.entity.Role</class>
+        <class>com.gmail.kramarenko104.warehouseJPA.domain.User</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/JPA_DB_01"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.user" value="roo"/>
             <property name="javax.persistence.jdbc.password" value=""/>
 
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
@@ -22,8 +24,8 @@
 
             <property name="hibernate.cache.use.query_cache" value="false"/>
             <property name="hibernate.cache.use_second_level_cache" value="false"/>
-
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="none"/>
+            <!--<property name="hibernate.hbm2ddl.auto" value="create"/>-->
         </properties>
     </persistence-unit>
 

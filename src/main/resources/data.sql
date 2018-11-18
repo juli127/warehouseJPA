@@ -1,6 +1,8 @@
-INSERT INTO CLIENTS (name, address) VALUES ('Jonh Smith', 'Ukraine, Kiev, 24 Buchmy str., apt.19');
-INSERT INTO CLIENTS (name, address) VALUES ('Meri Brass', 'Ukraine, Kiev, 18 Zoologicheskaya str., apt.88');
-INSERT INTO CLIENTS (name, address) VALUES ('Olga Novik', 'Ukraine, Kiev, 3A Grishka str., apt.56');
+INSERT INTO CLIENTS (name, login, password, address, active) VALUES ('Jonh Smith', 'log1', 'pass','Ukraine, Kiev, 24 Buchmy str., apt.19', 1);
+INSERT INTO CLIENTS (name, login, password, address, active) VALUES ('Meri Brass', 'meri', 'pass', 'Ukraine, Kiev, 18 Zoologicheskaya str., apt.88', 1);
+INSERT INTO CLIENTS (name, login, password, address, active) VALUES ('Olga Novik', 'olg33', 'pass', 'Ukraine, Kiev, 3A Grishka str., apt.56', 1);
+INSERT INTO CLIENTS (name, login, password, address, active) VALUES ('Viktor Fedorenko', 'fedor', 'pass', 'Ukraine, Odessa, 23/1 Hmelitskogo str., apt.157', 1);
+INSERT INTO CLIENTS (name, login, password, address, active) VALUES ('Ivan Sidorov', 'sidor44', 'pass','Ukraine, Kharkov, Centralnaya str. 32, apt.78', 1);
 
 INSERT INTO PRODUCTS (type, model, price) VALUES ('fridge', 'BOSCH KGN3', 17299);
 INSERT INTO PRODUCTS (type, model, price) VALUES ('fridge', 'SAMSUNG RB29FS', 12999);
@@ -15,6 +17,7 @@ INSERT INTO WAREHOUSE (PROD_ID, AMOUNT) VALUES (4,89);
 INSERT INTO PURCHASES (CL_ID, PROD_ID, AMOUNT) VALUES (1, 2, 1);
 INSERT INTO PURCHASES (CL_ID, PROD_ID, AMOUNT) VALUES (2, 3, 2);
 INSERT INTO PURCHASES (CL_ID, PROD_ID, AMOUNT) VALUES (2, 1, 1);
+INSERT INTO PURCHASES (CL_ID, PROD_ID, AMOUNT) VALUES (4, 1, 1);
 
 SELECT * FROM CLIENTS;
 SELECT * FROM PRODUCTS;

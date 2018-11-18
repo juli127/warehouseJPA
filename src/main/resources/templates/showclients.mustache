@@ -15,30 +15,43 @@
         padding: 5px;
     }
 </style>
+<form action="@{/logout}" method="post">
+    <input type="hidden" name="_csrf" value={{_csrf.token}}/>
+    <input type="submit" value="Sign Out"/>
+</form>
 
-<div><b> <h2>Clients list: </h2></b></div>
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th>address</th>
-    </tr>
-{{#clients}}
-<tr>
-    <td>{{id}}</td>
-    <td>{{name}}</td>
-    <td>{{address}}</td>
-</tr>
-{{/clients}}
-</table>
-
+<!--long id, String name, String login, String password, String address-->
 <div>
     <form method="post">
         <input type="text" name="name" placeholder="Введите имя">
+        <input type="text" name="login" placeholder="Введите логин">
+        <input type="text" name="password" placeholder="Введите пароль">
         <input type="text" name="address" placeholder="Введите адрес">
+        <input type="hidden" name="_csrf" value={{_csrf.token}}/>
         <button type="submit">Add Client</button>
     </form>
 </div>
 
+<div><b><h2>Clients list: </h2></b></div>
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>login</th>
+        <th>address</th>
+    </tr>
+    {{#clients}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{name}}</td>
+            <td>{{login}}</td>
+            <td>{{address}}</td>
+        </tr>
+    {{/clients}}
+</table>
+
+<div>
+    <p><h3><a href="/choice">Go back to main page</a></h3></p>
+</div>
 </body>
 </html>
